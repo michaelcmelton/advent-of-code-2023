@@ -10,8 +10,7 @@ import (
 
 func Test_SolvePartB_TestCase(t *testing.T) {
 	expected := 281
-	mockInput := `
-two1nine
+	mockInput := `two1nine
 eightwothree
 abcone2threexyz
 xtwone3four
@@ -28,7 +27,7 @@ zoneight234
 }
 
 func Test_SolvePartB_ActualCase(t *testing.T) {
-	expected := 54953
+	expected := 53868
 	file, err := os.Open(filepath.Join("..", "..", "inputs", "day1.txt"))
 
 	if err != nil {

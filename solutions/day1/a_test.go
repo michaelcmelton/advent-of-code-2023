@@ -10,17 +10,16 @@ import (
 
 func Test_SolvePartA_TestCase(t *testing.T) {
 	expected := 142
-	mockInput := `
-1abc2
+	mockInput := []byte(`1abc2
 pqr3stu8vwx
 a1b2c3d4e5f
 treb7uchet
-	`
+	`)
 
 	actual := day1.SolvePartA(mockInput)
 
 	if expected != actual {
-		t.Fatalf("exected %d, actual %d", expected, actual)
+		t.Fatalf("exp %d, act %d", expected, actual)
 	}
 }
 
@@ -37,9 +36,9 @@ func Test_SolvePartA_ActualCase(t *testing.T) {
 		t.Fatalf("error reading file: %s", err)
 	}
 
-	actual := day1.SolvePartA(string(bytes))
+	actual := day1.SolvePartA(bytes)
 
 	if expected != actual {
-		t.Fatalf("exected %d, actual %d", expected, actual)
+		t.Fatalf("exp %d, act %d", expected, actual)
 	}
 }

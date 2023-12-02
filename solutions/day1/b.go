@@ -1,23 +1,22 @@
 package day1
 
 import (
-	"fmt"
 	"regexp"
 )
 
 func SolvePartB(input string) int {
 	substitutedInput := input
 	substitutions := map[string]string{
-		"one":   "1",
-		"two":   "2",
-		"three": "3",
-		"four":  "4",
-		"five":  "5",
-		"six":   "6",
-		"seven": "7",
-		"eight": "8",
-		"nine":  "9",
-		"zero":  "0",
+		"one":   "o1e",
+		"two":   "t2o",
+		"three": "t3e",
+		"four":  "f4r",
+		"five":  "f5v",
+		"six":   "s6x",
+		"seven": "s7n",
+		"eight": "e8t",
+		"nine":  "n9e",
+		"zero":  "z0o",
 	}
 
 	for key, val := range substitutions {
@@ -25,7 +24,5 @@ func SolvePartB(input string) int {
 		substitutedInput = re.ReplaceAllString(substitutedInput, val)
 	}
 
-	fmt.Printf("substituted input:\n\n%s\n", substitutedInput)
-
-	return SolvePartA(input)
+	return SolvePartA([]byte(substitutedInput))
 }

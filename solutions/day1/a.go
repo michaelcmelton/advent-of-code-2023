@@ -2,10 +2,10 @@ package day1
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"regexp"
 	"strconv"
-	"strings"
 )
 
 /*
@@ -38,12 +38,11 @@ Consider your entire calibration document. What is the sum of all of the calibra
 
 */
 
-func SolvePartA(input string) int {
+func SolvePartA(input []byte) int {
 	var sum int
 	var collectedInts [][]int
 
-	scanner := bufio.NewScanner(strings.NewReader(input))
-
+	scanner := bufio.NewScanner(bytes.NewReader(input))
 	for scanner.Scan() {
 		var lineInts []int
 		line := scanner.Text()
@@ -68,19 +67,15 @@ func SolvePartA(input string) int {
 
 		if len(intLine) > 0 {
 			if len(intLine) == 1 {
-				sumNumber := (intLine[0] * 10) + intLine[0]
-				sum += sumNumber
+				sum += (intLine[0] * 10) + intLine[0]
 			}
 			if len(intLine) == 2 {
-				sumNumber := (intLine[0] * 10) + intLine[1]
-				sum += sumNumber
+				sum += (intLine[0] * 10) + intLine[1]
 			}
 			if len(intLine) > 2 {
-				sumNumber := (intLine[0] * 10) + intLine[len(intLine)-1]
-				sum += sumNumber
+				sum += (intLine[0] * 10) + intLine[len(intLine)-1]
 			}
 		}
-
 	}
 
 	return sum

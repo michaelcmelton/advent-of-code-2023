@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"regexp"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -59,8 +60,10 @@ func SolvePartA(input []byte, redLimit, blueLimit, greenLimit int) int {
 
 		roundSlice := strings.Split(result["rest"], ";")
 
-		roundCount := make(map[string]int)
 		valid := true
+		var blueCounts []int
+		var greenCounts []int
+		var redCounts []int
 		for i := range roundSlice {
 			round := roundSlice[i]
 			blueRe := regexp.MustCompile(`(?P<blueCount>\d+) blue`)
@@ -74,44 +77,44 @@ func SolvePartA(input []byte, redLimit, blueLimit, greenLimit int) int {
 			for i, name := range blueRe.SubexpNames() {
 				if i != 0 && name != "" && len(blueMatch) > 0 {
 					count, _ := strconv.ParseInt(blueMatch[i], 10, 64)
-					roundCount[name] = int(count)
+					blueCounts = append(blueCounts, int(count))
 				}
 			}
 
 			for i, name := range redRe.SubexpNames() {
 				if i != 0 && name != "" && len(redMatch) > 0 {
 					count, _ := strconv.ParseInt(redMatch[i], 10, 64)
-					roundCount[name] = int(count)
+					redCounts = append(redCounts, int(count))
 				}
 			}
 
 			for i, name := range greenRe.SubexpNames() {
 				if i != 0 && name != "" && len(greenMatch) > 0 {
 					count, _ := strconv.ParseInt(greenMatch[i], 10, 64)
-					roundCount[name] = int(count)
+					greenCounts = append(greenCounts, int(count))
 				}
 			}
+		}
 
-			if roundCount["blueCount"] > blueLimit {
-				valid = false
-				break
-			}
+		maxBlue := slices.Max(blueCounts)
+		maxGreen := slices.Max(greenCounts)
+		maxRed := slices.Max(redCounts)
 
-			if roundCount["greenCount"] > greenLimit {
-				valid = false
-				break
-			}
+		if maxBlue > blueLimit {
+			valid = false
+		}
 
-			if roundCount["redCount"] > redLimit {
-				valid = false
-				break
-			}
+		if maxGreen > greenLimit {
+			valid = false
+		}
+
+		if maxRed > redLimit {
+			valid = false
 		}
 
 		if valid {
 			gameNumInt, _ := strconv.ParseInt(result["gameNum"], 10, 64)
 			sum += int(gameNumInt)
-			roundCount = map[string]int{}
 		}
 	}
 

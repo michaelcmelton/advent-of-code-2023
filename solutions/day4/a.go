@@ -10,12 +10,23 @@ import (
 	"strings"
 )
 
+func readAllInput(scanner *bufio.Scanner) []string {
+	var output []string
+	for scanner.Scan() {
+		output = append(output, scanner.Text())
+	}
+
+	return output
+}
+
 func SolvePartA(input []byte) int {
 	scanner := bufio.NewScanner(bytes.NewReader(input))
+	fileContents := readAllInput(scanner)
 	var answer int
-	for scanner.Scan() {
+
+	for i := len(fileContents) - 1; i >= 0; i-- {
 		var num int
-		line := scanner.Text()
+		line := fileContents[i]
 		data := strings.Split(line, ": ")[1]
 
 		winnersStr := strings.Split(strings.Split(data, " | ")[0], " ")

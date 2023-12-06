@@ -3,7 +3,9 @@ package day5
 import (
 	"bufio"
 	"bytes"
+	"fmt"
 	"regexp"
+	"time"
 )
 
 func SolvePartB(input []byte) int {
@@ -62,9 +64,11 @@ func SolvePartB(input []byte) int {
 
 	for i := range seeds {
 		seedRange := seeds[i][1]
+		fmt.Printf("%#v processing seed pair %d of %d... %#v\n", time.Now().Format(time.DateTime), i, len(seeds), seeds[i])
 
 		for j := 0; j < seedRange; j++ {
 			seedNumber := seeds[i][0] + j
+			fmt.Printf("%#v processing seed number %d, starting value: %d, ending value: %d\n", time.Now().Format(time.DateTime), seedNumber, seeds[i][0], seeds[i][0]+seeds[i][1]-1)
 			soilNumber := getNextValue(seedNumber, seedSoilMap)
 			fertNumber := getNextValue(soilNumber, soilFertMap)
 			waterNumber := getNextValue(fertNumber, fertWaterMap)

@@ -51,6 +51,14 @@ func getNextValue(input int, dataMap [][]int) int {
 		maxVal := set[1] + set[2]
 		minVal := set[1]
 
+		if minVal == input {
+			return set[0]
+		}
+
+		if maxVal == input {
+			return set[0] + set[2] - 1
+		}
+
 		if input < minVal || input > maxVal {
 			continue
 		}

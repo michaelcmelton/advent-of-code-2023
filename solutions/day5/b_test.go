@@ -2,6 +2,9 @@ package day5_test
 
 import (
 	"advent-of-code-2023/solutions/day5"
+	"io"
+	"os"
+	"path/filepath"
 	"testing"
 )
 
@@ -45,5 +48,25 @@ humidity-to-location map:
 
 	if expected != actual {
 		t.Fatalf("expected %d, got %d", expected, actual)
+	}
+}
+
+func Test_SolvePartB_ActualCase(t *testing.T) {
+	expected := 0
+	file, err := os.Open(filepath.Join("..", "..", "inputs", "day5.txt"))
+
+	if err != nil {
+		t.Fatalf("error opening file: %s", err)
+	}
+
+	bytes, err := io.ReadAll(file)
+	if err != nil {
+		t.Fatalf("error reading file: %s", err)
+	}
+
+	actual := day5.SolvePartB(bytes)
+
+	if expected != actual {
+		t.Fatalf("exp %d, act %d", expected, actual)
 	}
 }
